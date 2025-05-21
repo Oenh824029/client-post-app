@@ -18,7 +18,14 @@
   </div>
   <a class="btn btn-neutral join-item" (click)="showPassword(type)"> <i [class]="icon"></i></a>
 </div>
-
+<fieldset class="fieldset bg-slate-100 border-base-300 rounded-box border p-4 text-black text-center w-full">
+  <legend class="fieldset-legend text-black">Login options</legend>
+  <label class="label justify-center">
+    <input type="checkbox" checked="checked" class="checkbox checkbox-secondary"
+    formControlName="rememberMe" />
+    Remember me
+  </label>
+</fieldset>
 <button class="btn btn-secondary" type="submit">Login</button>
 </form>
 

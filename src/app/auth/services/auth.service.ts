@@ -38,11 +38,11 @@ export class AuthService extends BaseHttpService{
 
 }
 
-  register(data: any){
+  register(data: any):Observable<boolean>{
     return this.http.post<any>(`${this.apiUrl}/auth/register`, data).pipe(
       map((resp)=> this.handleAuthSuccess(resp)),
       catchError((error: any) => this.handleAuthError(error))
-    )
+    );
   }
 
   checkStatus():Observable<boolean>{
@@ -51,7 +51,10 @@ export class AuthService extends BaseHttpService{
       this.logout();
       return of(false);
     }
-    return this.http.get<any>(`${this.apiUrl}/auth/check-status`);
+    return this.http.get<any>(`${this.apiUrl}/auth/check-status`).pipe(
+      map((resp)=> this.handleAuthSuccess(resp)),
+      catchError((error:any)=> this.handleAuthError(error))
+    );
   }
 
 
