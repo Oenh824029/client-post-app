@@ -3,6 +3,11 @@ import { BaseHttpService } from '../../shared/services/base-http.service';
 import { Observable, of } from 'rxjs';
 import { Role, RolesResponse,  User,  UserResponse, UsersResponse } from '../interfaces/user.interface';
 
+interface Options{
+  limit?: number,
+  page?: number,
+}
+
 const emptyUser: User = {
   id: 'new',
   first_name: '',
@@ -22,8 +27,11 @@ const emptyUser: User = {
 })
 export class UserService extends BaseHttpService{
 
-  getUsers():Observable<UsersResponse>{
-    return this.http.get<UsersResponse>(`${this.apiUrl}/users`)
+  getUsers(options: Options):Observable<UsersResponse>{
+    const { limit = 4, page = 1 } = options;
+
+
+    return this.http.get<UsersResponse>(`${this.apiUrl}/users`, {params: {limit, page}});
   }
 
   getUser(id:string):Observable<UserResponse>{
