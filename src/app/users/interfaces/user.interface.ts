@@ -28,6 +28,8 @@ export interface User{
     createdAt: Date;
     updatedAt: Date;
     Role: Role;
+    auth?: boolean;
+    role_id?:string;
 }
 
 export interface Role{

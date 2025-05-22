@@ -4,24 +4,28 @@
 
 <div class="divider divider-secondary"></div>
 
-<div class="flex gap-2 items-center h-20">
+<div class="flex w-full gap-2 items-center h-20 justify-between">
+    <label class="floating-label mb-10 mt-4">
+        <span>Items Per Pages</span>
+        <select 
+        class="select select-bordered w-32 "
+        [value]="limit()"
+        (change)="setLimit(itemPP.value)"
+        #itemPP
+        >
+            <option>5</option>
+            <option>10</option>
+            <option>15</option>
+            <option>30</option>
+        </select>
+    </label>
+
     <app-pagination 
     [pages]="userResource.value()?.data?.totalPages ?? 0"
-    [limit]="limit()"
+    [currentPage]="paginationService.currentPage()"
     >
     </app-pagination>
 
-    <select 
-    class="select select-bordered w-32 mb-10 mt-4"
-    [value]="limit()"
-    (change)="setLimit(itemPP.value)"
-    #itemPP
-    >
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-    </select>
 
     <div class="flex flex-1"></div>
     <button class="btn btn-secondary" routerLink="/dashboard/users/new">
@@ -35,7 +39,8 @@
     </div>
 }
 @if(userResource.hasValue()){
-<user-table [users]="userResource.value().data.users"></user-table>
+<user-table [users]="userResource.value().data.users"
+    (deleted)="deletedUser($event)"></user-table>
 }@else{
     <div class="flex justify-center items-center h-screen">
         <h2 class="text-2xl">Lista no tiene datos para mostrar</h2>

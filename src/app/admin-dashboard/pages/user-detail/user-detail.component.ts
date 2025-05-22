@@ -40,7 +40,7 @@ export class UserDetailComponent {
       last_name:  this.user().last_name,
       email:      this.user().email,
       telephone:  this.user().telephone,
-      role_id:    this.user().Role.id ?? 0,
+      role_id:    this.user()?.role_id ?? this.user().Role.id ?? 0,
       avatar:     this.user().avatar,
       password:   this.user().password,
     });
